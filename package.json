@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node": "^19.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "battleship-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/K-Wiczling/Battleship-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/K-Wiczling/Battleship-Backend/issues"
+  },
+  "homepage": "https://github.com/K-Wiczling/Battleship-Backend#readme",
+  "description": ""
+
+}
