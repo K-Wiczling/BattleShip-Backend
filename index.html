@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiroom Chat</title>
+</head>
+<body>
+  <div id="chatroom">
+    <h1>Multiroom Chat</h1>
+    <div id="messages"></div>
+    <form id="message-form">
+      <input type="text" id="message-input" placeholder="Type your message here...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+    let roomName = '';
+
+    ws.onmessage = function (event) {
+      // Parse the incoming message data and display it in the chat interface
+      const message = JSON.parse(event.data);
+      if (message.action === 'join') {
+        roomName = message.room;
+      }
+      const messagesDiv = document.getElementById('messages');
+      const messageDiv = document.createElement('div');
+      messageDiv.innerText = message.sender + ': ' + message.content;
+      messagesDiv.appendChild(messageDiv);
+    };
+
+    document.getElementById('message-form').addEventListener('submit', function (event) {
+      // Send a message to the server with the sender, recipient, and message content
+      event.preventDefault();
+      const messageInput = document.getElementById('message-input');
+      const message = {
+        action: 'message',
+        room: roomName,
+        sender: 'You',
+        content: messageInput.value
+      };
+      ws.send(JSON.stringify(message));
+      messageInput.value = '';
+    });
+  </script>
+</body>
+</html>
