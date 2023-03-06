@@ -1,5 +1,7 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+
+import {generateSetOfOptions} from './src/gameSetup.js';
 
 // const bcrypt = require("bcrypt");
 // const validate = require("validate");
@@ -37,11 +39,13 @@ app.get("/profile/settings/:id", (req, res) => {
 
 // Get the posible game configurations
 app.get("/lobby/configuration", (req, res) => {
-  res.send('Game configurations not implemented')
+  const configString = generateSetOfOptions();
+  res.json(configString)
 });
 
 // POST Start game
 app.post("/lobby/start-game", (req, res) => {
+  
   res.send('Start game not implemented')
 });
 

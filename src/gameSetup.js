@@ -115,3 +115,12 @@ const globalParam = {
     plyer: "Player",
   },
 };
+
+export const generateSetOfOptions = () => {
+  return {
+    enemyTpes: globalParam.enemyTpes,
+    aiDifficulty: globalParam.aiDifficulty,
+    fleetType: globalParam.fleetType,
+    boardSize: globalParam.boardSize
+  }
+}

@@ -17,6 +17,7 @@
     "start": "nodemon server.js"
   },
   "name": "battleship-backend",
+  "type": "module",
   "version": "1.0.0",
   "main": "server.js",
   "repository": {
