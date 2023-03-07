@@ -1,19 +1,6 @@
-const globalParam = {
-  //All states that game can by in
-  modes: {
-    splash: "mode-splash",
-    menu: "mode-menu",
-    game: "mode-game",
-  },
-
-  //standard nameing for player and enemy
-  players: {
-    player: "player",
-    enemy: "enemy",
-  },
-
+export const gameConfig = {
   //Posible enemy types
-  enemyTpes: {
+  enemyTypes: {
     AI: "enemyTypeAI",
     Multi: "enemyTypeMulti",
   },
@@ -27,11 +14,12 @@ const globalParam = {
   },
 
   //What kind of fleet player want to play with
-  fleetType: {
+  fleetTypes: {
     clasic: "fleetTypeClasic",
     Long: "fleetTypeLong",
     Short: "fleetTypeShort",
   },
+
   //Board sizes
   boardSize: {
     clasic: "boardSizeClasic-10x10",
@@ -90,6 +78,7 @@ const globalParam = {
     ["N", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
     ["O", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
   ],
+  
   //Standard game states
   gameState: {
     pre: "pre",
@@ -98,29 +87,12 @@ const globalParam = {
     end: "end",
   },
 
-  //Type of console messeges
-  gameConsoleMessageTypes: {
-    info: "consoleTypeInfo",
-    warning: "consoleTypeWarning",
-    error: "consoleTypeError",
-    enemy: "consoleTypeEnemy",
-    player: "consoleTypePlayer",
-  },
+  // Classic board 10x10 Fleet arrangements
+  
 
-  //Type of console sender
-  gameConsoleSenderType: {
-    game: "Game",
-    system: "System",
-    enemy: "Enemy",
-    plyer: "Player",
-  },
+  // Big board 15x15 Fleet arrangements
+
+  // Small board 5x5 Fleet arrangements
+  
 };
 
-export const generateSetOfOptions = () => {
-  return {
-    enemyTpes: globalParam.enemyTpes,
-    aiDifficulty: globalParam.aiDifficulty,
-    fleetType: globalParam.fleetType,
-    boardSize: globalParam.boardSize
-  }
-}

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import {generateSetOfOptions} from './src/gameSetup.js';
+import {getLobbyConfiguration} from './src/configuration/config-functions.js';
 
 // const bcrypt = require("bcrypt");
 // const validate = require("validate");
@@ -39,7 +39,7 @@ app.get("/profile/settings/:id", (req, res) => {
 
 // Get the posible game configurations
 app.get("/lobby/configuration", (req, res) => {
-  const configString = generateSetOfOptions();
+  const configString = getLobbyConfiguration();
   res.json(configString)
 });
 
