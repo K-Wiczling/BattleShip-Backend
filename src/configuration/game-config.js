@@ -1,3 +1,6 @@
+import Fleet from "./fleet-class.js";
+const fleet = new Fleet();
+
 export const gameConfig = {
   //Posible enemy types
   enemyTypes: {
@@ -16,10 +19,9 @@ export const gameConfig = {
   //What kind of fleet player want to play with
   fleetTypes: {
     clasic: "fleetTypeClasic",
-    Long: "fleetTypeLong",
-    Short: "fleetTypeShort",
+    long: "fleetTypeLong",
+    short: "fleetTypeShort",
   },
-
   //Board sizes
   boardSize: {
     clasic: "boardSizeClasic-10x10",
@@ -87,12 +89,40 @@ export const gameConfig = {
     end: "end",
   },
 
-  // Classic board 10x10 Fleet arrangements
-  
 
-  // Big board 15x15 Fleet arrangements
+  // Classic board 10x10 Fleets arrangement
 
-  // Small board 5x5 Fleet arrangements
+  //Clasic Fleet
+  ccFleet : fleet.getFleet(1, 2, 3, 4),
+
+  //Long Fleet
+  clFleet : fleet.getFleet(2, 3, 3, 2),
+
+  //Short Fleet
+  csFleet : fleet.getFleet(1, 1, 7, 8),
+
+  // Big board 15x15 Fleets arrangement
+
+   //Clasic Fleet
+  bcFleet : fleet.getFleet(2, 2, 8, 8),
+
+  //Long Fleet
+  blFleet : fleet.getFleet(4, 5, 4, 4),
+
+  //Short Fleet
+  bsFleet : fleet.getFleet(1, 1, 10, 12),
+
+
+  // Small board 5x5 Fleets arrangement
   
+   //Clasic Fleet
+  scFleet : fleet.getFleet(0, 1, 2, 3),
+
+  //Long Fleet
+  slFleet : fleet.getFleet(0, 2, 2, 1),
+
+  //Short Fleet
+  ssFleet : fleet.getFleet(0, 1, 1, 4),
+
 };
 

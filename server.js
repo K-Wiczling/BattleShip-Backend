@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import {getLobbyConfiguration} from './src/configuration/config-functions.js';
+import {getLobbyConfiguration, getFleetForBoard} from './src/configuration/config-functions.js';
 
 // const bcrypt = require("bcrypt");
 // const validate = require("validate");
@@ -40,6 +40,12 @@ app.get("/profile/settings/:id", (req, res) => {
 // Get the posible game configurations
 app.get("/lobby/configuration", (req, res) => {
   const configString = getLobbyConfiguration();
+  res.json(configString)
+});
+
+// Get posible fleet arrangement for given board size
+app.get("/lobby/configuration/:boardType", (req, res) => {
+  const configString = getFleetForBoard(req.params.boardType);
   res.json(configString)
 });
 
