@@ -14,7 +14,8 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "name": "battleship-backend",
   "type": "module",

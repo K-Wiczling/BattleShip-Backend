@@ -46,6 +46,7 @@ app.get("/lobby/configuration", (req, res) => {
 // Get posible fleet arrangement for given board size
 app.get("/lobby/configuration/:boardType", (req, res) => {
   const configString = getFleetForBoard(req.params.boardType);
+  console.log(getFleetForBoard('boardSizeSmall-5x5'));
   res.json(configString)
 });
 

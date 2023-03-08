@@ -1,4 +1,4 @@
-// Holds sizes of each ship type
+// Holds sizes of each ship 
 export default class Fleet {
     #carrier = 5;
     #battleship = 4;
