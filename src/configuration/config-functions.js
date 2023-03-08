@@ -27,6 +27,6 @@ export const getFleetForBoard = (boardSize = gameConfig.boardSize.clasic) => {
             return [gameConfig.scFleet, gameConfig.slFleet, gameConfig.ssFleet]
 
         default:
-            return []
+            return [];
     }
 }
