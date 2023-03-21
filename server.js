@@ -4,9 +4,15 @@ import cors from "cors";
 import {getLobbyConfiguration, getFleetForBoard} from './src/configuration/config-functions.js';
 
 // const bcrypt = require("bcrypt");
-// const validate = require("validate");
+const { body, validationResult } = require('express-validator');
+
 
 const app = express();
+
+// Middleware to sanitize request body using express-validator
+app.use(
+  body('*').trim().escape(),
+);
 
 // Enable CORS in the development
 app.use(cors());
