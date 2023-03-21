@@ -1,14 +1,33 @@
 import express from "express";
 import cors from "cors";
+import knex from "knex";
+import { body } from 'express-validator';
+// const bcrypt = require("bcrypt");
 
 import {getLobbyConfiguration, getFleetForBoard} from './src/configuration/config-functions.js';
 
-// const bcrypt = require("bcrypt");
-const { body, validationResult } = require('express-validator');
 
+const myknex = knex({
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    port : 5432,
+    user : 'postgres',
+    password : 'battle',
+    database : 'battleship'
+  }
+});
+
+myknex('users').insert({
+    name: 'Bob', 
+    email: 'bob@gmail.com'
+  }).then()
+
+myknex.select('*').from('users').then(data => {
+  console.log(data);
+})
 
 const app = express();
-
 // Middleware to sanitize request body using express-validator
 app.use(
   body('*').trim().escape(),
@@ -75,14 +94,14 @@ app.post("/signin", (req, res) => {
 
 
 // Start server
-app.listen(3001, () => {
+app.listen(3002, () => {
   // Remove this in the production
-  console.log("App is runninig on port 3001");
+  console.log("App is runninig on port 3002");
 });
 
 
 // Middleware function example
 // const middleware = (req, res, next) => {
 //   console.log(`middleware run`);
-//   next();
+//   next();/
 // };
