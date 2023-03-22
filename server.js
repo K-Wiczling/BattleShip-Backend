@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
 
-// const bcrypt = require("bcrypt");
-
 import { getLobbyConfiguration, getFleetForBoard } from './src/configuration/config-functions.js';
 import { db } from './src/db/db-credential.js'
 
