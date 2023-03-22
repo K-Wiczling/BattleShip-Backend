@@ -1,33 +1,10 @@
 import express from "express";
 import cors from "cors";
-import { body } from 'express-validator';
+
 // const bcrypt = require("bcrypt");
 
-import {getLobbyConfiguration, getFleetForBoard} from './src/configuration/config-functions.js';
+import { getLobbyConfiguration, getFleetForBoard } from './src/configuration/config-functions.js';
 import { db } from './src/db/db-credential.js'
-
-
-
-// Validators
-
-// isAlphanumeric(str [, locale, options]) //numberW & letters
-// isBoolean(str [, options]) 
-// isEmail(str [, options])
-// isEmpty(str [, options])
-// isFloat(str [, options])
-// isHash(str, algorithm)
-// isInt(str [, options])
-// isNumeric(str [, options])
-// isStrongPassword(str [, options])
-
-// Sanitizers 
-// escape(input) //replace <, >, &, ', " and / with HTML entities.
-// normalizeEmail(email [, options])
-
-// toBoolean(input [, strict]) 
-// convert the input string to a boolean. Everything except for '0', 'false' and '' returns true. 
-//  In strict mode only '1' and 'true' return true.
-
 
 const app = express();
 
@@ -37,7 +14,7 @@ app.use(cors());
 // ROUTES ________________________________
 
 // Test Route 
-app.get('/test', (req,  res) => {
+app.get('/test', (req, res) => {
   // Testing if database connection working
   db.select('name', 'score_to_rank').from('users').then(data => {
     console.log(data);
