@@ -1,46 +1,52 @@
 import express from "express";
 import cors from "cors";
-import knex from "knex";
 import { body } from 'express-validator';
 // const bcrypt = require("bcrypt");
 
 import {getLobbyConfiguration, getFleetForBoard} from './src/configuration/config-functions.js';
+import { db } from './src/db/db-credential.js'
 
 
-const myknex = knex({
-  client: 'pg',
-  connection: {
-    host : '127.0.0.1',
-    port : 5432,
-    user : 'postgres',
-    password : 'battle',
-    database : 'battleship'
-  }
-});
 
-myknex('users').insert({
-    name: 'Bob', 
-    email: 'bob@gmail.com'
-  }).then()
+// Validators
 
-myknex.select('*').from('users').then(data => {
-  console.log(data);
-})
+// isAlphanumeric(str [, locale, options]) //numberW & letters
+// isBoolean(str [, options]) 
+// isEmail(str [, options])
+// isEmpty(str [, options])
+// isFloat(str [, options])
+// isHash(str, algorithm)
+// isInt(str [, options])
+// isNumeric(str [, options])
+// isStrongPassword(str [, options])
+
+// Sanitizers 
+// escape(input) //replace <, >, &, ', " and / with HTML entities.
+// normalizeEmail(email [, options])
+
+// toBoolean(input [, strict]) 
+// convert the input string to a boolean. Everything except for '0', 'false' and '' returns true. 
+//  In strict mode only '1' and 'true' return true.
+
 
 const app = express();
-// Middleware to sanitize request body using express-validator
-app.use(
-  body('*').trim().escape(),
-);
 
 // Enable CORS in the development
 app.use(cors());
 
 // ROUTES ________________________________
 
+// Test Route 
+app.get('/test', (req,  res) => {
+  // Testing if database connection working
+  db.select('name', 'score_to_rank').from('users').then(data => {
+    console.log(data);
+  })
+});
+
 // Main Page (Website part of the app)
 app.get("/", (req, res) => {
-  res.send("Battleship");
+  res.send("Welcome to Battleship!");
 });
 
 // Splash screen
@@ -77,7 +83,7 @@ app.get("/lobby/configuration/:boardType", (req, res) => {
 
 // POST Start game
 app.post("/lobby/start-game", (req, res) => {
-  
+
   res.send('Start game not implemented')
 });
 
@@ -91,17 +97,8 @@ app.post("/signin", (req, res) => {
   res.send('Signin not  implemented')
 });
 
-
-
-// Start server
+// Start server _________________________________
 app.listen(3002, () => {
   // Remove this in the production
   console.log("App is runninig on port 3002");
 });
-
-
-// Middleware function example
-// const middleware = (req, res, next) => {
-//   console.log(`middleware run`);
-//   next();/
-// };
