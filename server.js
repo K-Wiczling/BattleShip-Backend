@@ -3,13 +3,13 @@ import cors from "cors";
 
 import { getLobbyConfiguration, getFleetForBoard } from './src/configuration/config-functions.js';
 import { db } from './src/db/db-credential.js'
+import Register from "./src/registration/register.js";
 
 const app = express();
 
 // Enable CORS in the development
 app.use(cors());
-
-// ROUTES ________________________________
+app.use(express.json());
 
 // Test Route 
 app.get('/test', (req, res) => {
@@ -18,6 +18,16 @@ app.get('/test', (req, res) => {
     console.log(data);
   })
 });
+
+// ROUTES
+
+// Registartion
+app.post("/register", (req, res) => {
+  const {email, name,  password} = req.body;
+  const register = new Register(email, name, password)
+  res.send(register.registerMessage());
+});
+
 
 // Main Page (Website part of the app)
 app.get("/", (req, res) => {
@@ -62,18 +72,14 @@ app.post("/lobby/start-game", (req, res) => {
   res.send('Start game not implemented')
 });
 
-// Registartion
-app.post("/register", (req, res) => {
-  res.send('Registartion not  implemented')
-});
 
 // Signin
 app.post("/signin", (req, res) => {
   res.send('Signin not  implemented')
 });
 
-// Start server _________________________________
-app.listen(3002, () => {
+// Start server
+app.listen(3001, () => {
   // Remove this in the production
-  console.log("App is runninig on port 3002");
+  console.log("App is runninig on port 3001");
 });
