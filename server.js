@@ -13,6 +13,7 @@ import { db } from './src/db/db-credential.js'
 
 // Routers 
 import registerRouter from "./src/routes/registration/register.js";
+import loginRouter from "./src/routes/login/login.js";
 
 
 // Test Route 
@@ -27,6 +28,8 @@ app.get('/test', (req, res) => {
 // ROUTES
 app.post('/register', registerRouter);
 
+// Signin
+app.post("/login", loginRouter);
 
 // Main Page (Website part of the app)
 app.get("/", (req, res) => {
@@ -69,12 +72,6 @@ app.get("/lobby/configuration/:boardType", (req, res) => {
 app.post("/lobby/start-game", (req, res) => {
 
   res.send('Start game not implemented')
-});
-
-
-// Signin
-app.post("/signin", (req, res) => {
-  res.send('Signin not  implemented')
 });
 
 // Start server
