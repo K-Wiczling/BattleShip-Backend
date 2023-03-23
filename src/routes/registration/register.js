@@ -1,46 +1,55 @@
 import bcrypt from 'bcrypt'
 import express from "express";
 import { body, validationResult } from 'express-validator';
-
-const registerRouter = express.Router();
+import { db } from '../../db/db-credential.js';
 
 // Registartion
+const registerRouter = express.Router();
 
 registerRouter.use(
     "/register",
-    body('email').isEmail(),
+    body('email').isEmail().normalizeEmail(),
+    body('name').trim().isAlphanumeric(),
     body('password').isLength({ min: 10 }),
     (req, res) => {
-        // Finds the validation errors in this request and wraps them in an object with handy functions
+
+        // Checking for validation errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        // User.create({
-        //     username: req.body.username,
-        //     password: req.body.password,
-        // }).then(user => res.json(user));
-
+        // Deconstruct request to individual constants
         const { email, name, password } = req.body;
-        console.log(email);
-        res.send(`registration of user ${name}: `, );
+
+        // Bycrypt operations
+        const saltRounds = 10;
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hash = bcrypt.hashSync(password, salt);
+
+        // Try to add user to the database
+        db.transaction(trx => {
+            trx.insert({
+                hash: hash,
+                email: email
+            })
+                .into('login')
+                .returning('email')
+                .then(loginEmail => {
+                    return trx('users')
+                        .returning('*')
+                        .insert({
+                            email: loginEmail[0].email,
+                            name: name,
+                        })
+                        .then(user => {
+                            res.json(user[0]);
+                        })
+                })
+                .then(trx.commit)
+                .catch(trx.rollback)
+        })
+        .catch(err => res.status(400).json('unable to register'))
     });
 
 export default registerRouter;
-
-
-// // console.log(body);
-// body('email').isAlphanumeric()
-// console.log();
-
-
-// bcrypt.hash(password, this.saltRounds).then(function (hash) {
-//     // Store hash in your password DB.
-//     // this.hash = hash;
-//     // console.log(hash);
-// });
-
-// registerMessage = () => {
-//     return 'Register succesfuly';
-// }

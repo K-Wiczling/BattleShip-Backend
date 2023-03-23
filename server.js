@@ -20,6 +20,7 @@ app.get('/test', (req, res) => {
   // Testing if database connection working
   db.select('name', 'score_to_rank').from('users').then(data => {
     console.log(data);
+    res.json(data)
   })
 });
 
