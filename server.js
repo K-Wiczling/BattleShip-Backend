@@ -1,15 +1,19 @@
+// Express
 import express from "express";
-import cors from "cors";
-
-import { getLobbyConfiguration, getFleetForBoard } from './src/configuration/config-functions.js';
-import { db } from './src/db/db-credential.js'
-import Register from "./src/registration/register.js";
-
 const app = express();
 
 // Enable CORS in the development
+import cors from "cors";
 app.use(cors());
 app.use(express.json());
+
+// Battleship API's
+import { getLobbyConfiguration, getFleetForBoard } from './src/configuration/config-functions.js';
+import { db } from './src/db/db-credential.js'
+
+// Routers 
+import registerRouter from "./src/routes/registration/register.js";
+
 
 // Test Route 
 app.get('/test', (req, res) => {
@@ -20,13 +24,7 @@ app.get('/test', (req, res) => {
 });
 
 // ROUTES
-
-// Registartion
-app.post("/register", (req, res) => {
-  const {email, name,  password} = req.body;
-  const register = new Register(email, name, password)
-  res.send(register.registerMessage());
-});
+app.post('/register', registerRouter);
 
 
 // Main Page (Website part of the app)
