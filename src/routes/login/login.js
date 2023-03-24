@@ -9,7 +9,7 @@ const loginRouter = express.Router();
 loginRouter.use(
     "/login",
     body('email').isEmail().normalizeEmail(),
-    body('password').isLength({ min: 10 }),
+    body('password').trim().escape().isLength({ min: 10 }),
     (req, res) => {
 
         // Checking for validation errors
@@ -21,8 +21,28 @@ loginRouter.use(
         // Deconstruct request to individual constants
         const { email, password } = req.body;
 
-        res.send('woriking on it..')
+        db.select('email', 'hash').from('login')
+            .where('email', '=', email)
+            .then(data => {
+
+                bcrypt.compare(password, data[0].hash, function (err, result) {
+                    // result == true
+                    if (result) {
+                        return db.select('*').from('users')
+                            .where('email', '=', email)
+                            .then(user => {
+                                res.json(user[0])
+                            })
+                            .catch(err => res.status(400).json('unable to get user'))
+                    } else {
+                        res.status(400).json('wrong credentials')
+                    }
+                });
+        
+            })
+            .catch(err => res.status(400).json('wrong credentials'))
     });
 
 
 export default loginRouter;
+
