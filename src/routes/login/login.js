@@ -31,7 +31,7 @@ loginRouter.use(
                         return db.select('*').from('users')
                             .where('email', '=', email)
                             .then(user => {
-                                res.json(user[0])
+                                res.send('Welcome: ' + user[0].name)
                             })
                             .catch(err => res.status(400).json('unable to get user'))
                     } else {
