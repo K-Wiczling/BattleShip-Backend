@@ -12,7 +12,7 @@ registerRouter.use(
     body('name').trim().isAlphanumeric(),
     body('password').isLength({ min: 10 }),
     (req, res) => {
-
+        console.log(req);
         // Checking for validation errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
