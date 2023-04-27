@@ -26,7 +26,6 @@ loginRouter.use(
             .then(data => {
 
                 bcrypt.compare(password, data[0].hash, function (err, result) {
-                    // result == true
                     if (result) {
                         return db.select('*').from('users')
                             .where('email', '=', email)
